@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Site</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <style>
+      .main{
+          width: 350px;
+      }
+      .box{
+          width: 100px;
+          height: 100px;
+          border: 2px solid red;
+          display: inline-block;
+      }
+  </style>
+</head>
+<body>
+ 
+    <div class="container mt-5 ">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 bg-info">
+               <div id="none">
+                  <h1 class=""text-center >TODO GAME</h1><br>
+                  <form>
+                     
+                  <input type="text" id="player1" class="form-control" placeholder="Enter first player name" required ><br>
+                  <input type="text" id="player2" class="form-control" placeholder="Enter second player name" required ><br>
+              
+                  </form>
+     </div>
+               <button class="btn btn-dark" onclick="startGame()">Start Match</button><br><br>
+                
+                <div id="output"></div>
+                <div id="output1"></div>
+                <div id="output2"></div>
+                <div id="output3"></div>
+                <div id="output4"></div>
+                 <div class="main d-none" id="mnone">
+                    <div class="box" onclick="game('div1')" id="div1"></div>
+                    <div class="box" onclick="game('div2')" id="div2"></div>
+                    <div class="box" onclick="game('div3')" id="div3"></div>
+                    <div class="box" onclick="game('div4')" id="div4"></div>
+                    <div class="box" onclick="game('div5')" id="div5"></div>
+                    <div class="box" onclick="game('div6')" id="div6"></div>
+                    <div class="box" onclick="game('div7')" id="div7"></div>
+                    <div class="box" onclick="game('div8')" id="div8"></div>
+                    <div class="box" onclick="game('div9')" id="div9"></div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+     <script>
+         var chance ="red";
+         var totalMatch = 0;
+         var redCount1=0;
+         var blueCount1=0;
+         var drawCount1=0;
+         var player1;
+         var player2;
+         var player1WinCount=0;
+         var player2WinCount=0;
+         var drawCount2=0;
+         function game(userId){
+             //console.log(userId);
+             var hasRed = document.getElementById(userId).classList.contains("bg-danger");
+             var hasBlue = document.getElementById(userId).classList.contains("bg-primary");
+             if(hasRed  || hasBlue){
+                 console.log("something in there");
+             }else{
+                if(chance=="red"){
+                 document.getElementById(userId).classList.add("bg-danger");
+                 chance = "blue";
+             }else{
+                 document.getElementById(userId).classList.add("bg-primary");
+                 chance = "red";
+             }
+             }
+             winner();
+             drawGame()
+              
+         }
+         function startGame(){
+            document.getElementById("none").classList.add("d-none");
+            document.getElementById("mnone").classList.remove("d-none");
+            player1 = document.getElementById("player1").value;
+            player2 = document.getElementById("player2").value;
+            printCount();
+         }
+
+         function winner(){
+             var div1Red = document.getElementById('div1').classList.contains("bg-danger"); 
+             var div2Red = document.getElementById('div2').classList.contains("bg-danger");
+             var div3Red = document.getElementById('div3').classList.contains("bg-danger");
+             var div4Red = document.getElementById('div4').classList.contains("bg-danger"); 
+             var div5Red = document.getElementById('div5').classList.contains("bg-danger");
+             var div6Red = document.getElementById('div6').classList.contains("bg-danger");
+             var div7Red = document.getElementById('div7').classList.contains("bg-danger"); 
+             var div8Red = document.getElementById('div8').classList.contains("bg-danger");
+             var div9Red = document.getElementById('div9').classList.contains("bg-danger");
+            
+             var div1Blue = document.getElementById('div1').classList.contains("bg-primary"); 
+             var div2Blue = document.getElementById('div2').classList.contains("bg-primary");
+             var div3Blue = document.getElementById('div3').classList.contains("bg-primary");
+             var div4Blue = document.getElementById('div4').classList.contains("bg-primary"); 
+             var div5Blue = document.getElementById('div5').classList.contains("bg-primary");
+             var div6Blue = document.getElementById('div6').classList.contains("bg-primary");
+             var div7Blue = document.getElementById('div7').classList.contains("bg-primary"); 
+             var div8Blue = document.getElementById('div8').classList.contains("bg-primary");
+             var div9Blue = document.getElementById('div9').classList.contains("bg-primary");
+   
+             if(div1Red && div2Red && div3Red){
+                 console.log("red win");
+                 document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                 player1WinCount++;
+                 totalMatch++;                 
+                 printCount()
+                 redCount();
+                 resetGame();
+                 return true;
+             }else if(div4Red && div5Red && div6Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                player1WinCount++;
+                totalMatch++;
+                printCount();
+                resetGame();
+                redCount();
+                return true;
+             }else if(div7Red && div5Red && div9Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true;
+             }else if(div1Red && div4Red && div7Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true;
+             }else if(div2Red && div5Red && div8Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true
+             }else if(div3Red && div6Red && div9Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true
+             }else if(div1Red && div5Red && div9Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true
+             }else if(div3Red && div5Red && div7Red){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Red is Win</div>`;
+                totalMatch++;
+                player1WinCount++;
+                printCount();
+                resetGame();
+                redCount();
+                return true
+             } else if(div1Blue && div2Blue && div3Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true
+             }else if(div4Blue && div5Blue && div6Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true
+             }else if(div7Blue && div5Blue && div9Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true;
+             }else if(div1Blue && div4Blue && div7Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount()
+                return true;
+             }else if(div2Blue && div5Blue && div8Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true;
+             }else if(div3Blue && div6Blue && div9Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true
+             }else if(div1Blue && div5Blue && div9Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true
+             }else if(div3Blue && div5Blue && div7Blue){
+                document.getElementById("output").innerHTML = `<div class="alert alert-success">Blue is Win</div>`;
+                totalMatch++;
+                player2WinCount++;
+                printCount();
+                resetGame();
+                blueCount();
+                return true
+             } else{
+                 
+                return false;
+             }
+
+             
+         }
+
+         function resetGame(){
+             for(var i=1; i<=9; i++){
+                 document.getElementById(`div${i}`).classList.remove("bg-danger");
+                 document.getElementById(`div${i}`).classList.remove("bg-primary");
+               }
+               chance="red";
+         }
+
+         function drawGame(){
+            var div1Red = document.getElementById('div1').classList.contains("bg-danger"); 
+             var div2Red = document.getElementById('div2').classList.contains("bg-danger");
+             var div3Red = document.getElementById('div3').classList.contains("bg-danger");
+             var div4Red = document.getElementById('div4').classList.contains("bg-danger"); 
+             var div5Red = document.getElementById('div5').classList.contains("bg-danger");
+             var div6Red = document.getElementById('div6').classList.contains("bg-danger");
+             var div7Red = document.getElementById('div7').classList.contains("bg-danger"); 
+             var div8Red = document.getElementById('div8').classList.contains("bg-danger");
+             var div9Red = document.getElementById('div9').classList.contains("bg-danger");
+            
+             var div1Blue = document.getElementById('div1').classList.contains("bg-primary"); 
+             var div2Blue = document.getElementById('div2').classList.contains("bg-primary");
+             var div3Blue = document.getElementById('div3').classList.contains("bg-primary");
+             var div4Blue = document.getElementById('div4').classList.contains("bg-primary"); 
+             var div5Blue = document.getElementById('div5').classList.contains("bg-primary");
+             var div6Blue = document.getElementById('div6').classList.contains("bg-primary");
+             var div7Blue = document.getElementById('div7').classList.contains("bg-primary"); 
+             var div8Blue = document.getElementById('div8').classList.contains("bg-primary");
+             var div9Blue = document.getElementById('div9').classList.contains("bg-primary");
+   
+            var div1 = div1Red || div1Blue;
+            var div2 = div2Red || div2Blue;
+            var div3 = div3Red || div3Blue;
+            var div4 = div4Red || div4Blue;
+            var div5 = div5Red || div5Blue;
+            var div6 = div6Red || div6Blue;
+            var div7 = div7Red || div7Blue;
+            var div8 = div8Red || div8Blue;
+            var div9 = div9Red || div9Blue;
+            if(div1 && div2 && div3 && div4 && div5 && div6 && div7 && div8 && div9){
+                //console.log("sagale fill jhale");
+                var isWinner = winner();
+                if(isWinner){
+                   console.log("Someone is winner");
+                }else{
+                   console.log("match is draw");
+                   document.getElementById("output").innerHTML = `<div class="alert alert-success">Match is draw</div>`;
+                   drawCount2++;
+                   totalMatch++;
+                   printCount();
+                   resetGame()
+                   drawCount()
+                }
+            }
+         }
+          
+       function printCount(){         
+           
+          document.getElementById("output1").innerHTML = `<div class="alert alert-danger">${player1} Win Match =${player1WinCount} <br> ${player2} Win Match= ${player2WinCount} <br> Draw Match=${drawCount2} <br> Total Match= ${totalMatch}</div>`;
+         }  
+      function redCount(){
+          
+         redCount1++;
+         document.getElementById("output2").innerHTML = `<div class="alert alert-danger">Red Win Match= ${redCount1}</div>`;
+         
+      }
+      function blueCount(){
+          
+         blueCount1++;
+         document.getElementById("output3").innerHTML = `<div class="alert alert-danger">Blue Win Match= ${blueCount1}</div>`;
+      }
+      function drawCount(){
+          
+         drawCount1++;
+         document.getElementById("output4").innerHTML = `<div class="alert alert-danger">Draw Match= ${drawCount1}</div>`;
+      }
+     </script>
+
+</body>
+</html>
